@@ -77,10 +77,10 @@ plugins=(
 	git
 	docker
 	dotnet	
-  node
+  	node
 	npm
-  nvm
-  ubuntu
+  	nvm
+  	ubuntu
 	yarn	
 	zsh-autosuggestions
 	zsh-syntax-highlighting
