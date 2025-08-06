@@ -1,0 +1,17 @@
+[user]
+	name = {{ .gituser | quote }}
+	email = {{ .gitemail | quote }}
+
+[includeIf "gitdir:~/git/windy-worm/"]
+    path = ~/git/windy-worm/.gitconfig
+
+[init]
+    defaultBranch = main
+
+{{- if eq .chezmoi.os "linux" }}
+{{-     if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+	useHttpPath = true
+{{-   end }}
+{{- end -}}
