@@ -2,7 +2,6 @@
 #!/bin/sh
 
 # Installing needed packages
-echo ""
 echo "Installing packages"
 {{  if eq .chezmoi.osRelease.id "ubuntu" }}
 echo "Installing zsh curl git"
@@ -10,23 +9,19 @@ sudo apt -y install zsh curl git
 {{  end -}}
 
 # Switching shell
-echo ""
 echo "Switching to zsh"
 sudo chsh -s $(which zsh)
 
 # Installing oh my zsh
-echo ""
 echo "Attempting to install oh-my-zsh"
 if [ ! -d ~/.oh-my-zsh ]; then
-    echo "Installing oh-my-zsh"    
-    echo "Backup .zshrc from chezmoi"
-    cp .zshrc .zshrc.chezmoi -v
 
+    echo "Installing oh-my-zsh"    
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Oh My Zsh makes a backup, not necessary for this script.
     rm -rf .zshrc .shell.pre-oh-my-zsh
-    mv zshrc.chezmoi .zshrc 
+    mv .zshrc.pre-oh-my-zsh .zshrc
 fi
 
 # Enable zsh autosuggestions and completions
@@ -44,14 +39,11 @@ echo ""
 echo "Attempting to install oh-my-bash"
 if [ ! -d ~/.oh-my-bash ]; then
     echo "Installing oh-my-bash"
-    echo "Backup .bashrc from chezmoi"
-    cp .bashrc .bashrc.chezmoi -v
-
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
 
     # Need to restore bashrc file from chezmoi
-    # rm -rf .bashrc
-    # cp .bashrc.chezmoi .bashrc
+    rm -rf .bashrc
+    mv .bashrc.omb-backup-* .bashrc
 fi
 
 {{ end -}}
