@@ -1,6 +1,8 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
+BLUE='\033[0;34m'
+
 {{  if eq .chezmoi.osRelease.id "ubuntu" }}
 sudo apt -y install zsh curl git
 {{  end -}}
@@ -11,8 +13,8 @@ if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Oh My Zsh makes a backup, not necessary for this script.
-    rm -rf .zshrc .shell.pre-oh-my-zsh -v
-    mv .zshrc.pre-oh-my-zsh .zshrc -v
+    rm -rf .zshrc .shell.pre-oh-my-zsh
+    mv .zshrc.pre-oh-my-zsh .zshrc 
 fi
 
 # Enable zsh autosuggestions and completions
@@ -23,13 +25,17 @@ if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; 
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
+
 if [ ! -d ~/.oh-my-bash ]; then
+    echo "{BLUE} backup bashrc from chezmoi"
+    cp ~/.bashrc ~/.bashrc.chezmoi
+
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
 
     # Need to restore bashrc file from chezmoi
-    echo "restore bashrc from chemoiz"
-    rm -rf .bashrc -v
-    mv .bashrc.... .bashrc -v
+    echo "{BLUE} restore bashrc from chemoiz"
+    rm -rf .bashrc
+    mv .bashrc.chezmoi .bashrc
 fi
 
 {{ end -}}
