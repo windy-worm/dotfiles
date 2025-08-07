@@ -9,10 +9,10 @@ sudo apt -y install zsh curl git
 
 sudo chsh -s $(which zsh)
 
-echo "${BLUE}Backup .zshrc from chezmoi"
-cp ~/.zshrc ~/.zshrc.chezmoi
-
 if [ ! -d ~/.oh-my-zsh ]; then
+    echo "${BLUE}Backup .zshrc from chezmoi"
+    cp .zshrc .zshrc.chezmoi -v
+
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Oh My Zsh makes a backup, not necessary for this script.
@@ -31,14 +31,13 @@ fi
 
 if [ ! -d ~/.oh-my-bash ]; then
     echo "${BLUE}Backup .bashrc from chezmoi"
-    cp ~/.bashrc ~/.bashrc.chezmoi
+    cp .bashrc .bashrc.chezmoi -v
 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
 
     # Need to restore bashrc file from chezmoi
-    echo "${BLUE}Restore bashrc from chemoiz"
-    rm -rf .bashrc
-    cp .bashrc.chezmoi .bashrc
+    # rm -rf .bashrc
+    # cp .bashrc.chezmoi .bashrc
 fi
 
 {{ end -}}
