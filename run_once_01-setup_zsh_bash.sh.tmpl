@@ -24,10 +24,10 @@ if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; 
 fi
 
 if [ ! -d ~/.oh-my-bash ]; then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
 
     # Need to restore bashrc file from chezmoi
-    
+    echo "restore bashrc from chemoiz"
     rm -rf .bashrc -v
     mv .bashrc.... .bashrc -v
 fi
