@@ -27,13 +27,13 @@ fi
 
 
 if [ ! -d ~/.oh-my-bash ]; then
-    echo "{BLUE} backup bashrc from chezmoi"
+    echo "${BLUE} backup bashrc from chezmoi"
     cp ~/.bashrc ~/.bashrc.chezmoi
 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
 
     # Need to restore bashrc file from chezmoi
-    echo "{BLUE} restore bashrc from chemoiz"
+    echo "${BLUE} restore bashrc from chemoiz"
     rm -rf .bashrc
     mv .bashrc.chezmoi .bashrc
 fi
