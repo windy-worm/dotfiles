@@ -11,8 +11,8 @@ if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Oh My Zsh makes a backup, not necessary for this script.
-    rm -rf .zshrc .shell.pre-oh-my-zsh
-    mv .zshrc.pre-oh-my-zsh .zshrc
+    rm -rf .zshrc .shell.pre-oh-my-zsh -v
+    mv .zshrc.pre-oh-my-zsh .zshrc -v
 fi
 
 # Enable zsh autosuggestions and completions
@@ -27,8 +27,9 @@ if [ ! -d ~/.oh-my-bash ]; then
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
     # Need to restore bashrc file from chezmoi
-    rm -rf .bashrc
-    mv .bashrc.... .bashrc
+    
+    rm -rf .bashrc -v
+    mv .bashrc.... .bashrc -v
 fi
 
 {{ end -}}
