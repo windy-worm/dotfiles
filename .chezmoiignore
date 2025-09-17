@@ -1,6 +1,23 @@
-.github/
-install.sh
-LICENSE
-README.md
 .editorconfig
 .gitattributes
+.github/
+LICENSE
+README.md
+
+install.sh
+
+{{ if ne .osid "windows" }}
+glzr/
+{{- end }}
+
+{{ if ne .osid "linux-ubuntu" }}
+dot_bash_profile
+dot_bashrc
+run_once_01-setup_bash.sh.tmpl
+{{- end }}
+
+{{ if ne .osid "darwin" "linux-ubuntu" }}
+dot_zprofile
+dot_zshrc
+run_once_01-setup_zsh.sh.tmpl
+{{- end }}

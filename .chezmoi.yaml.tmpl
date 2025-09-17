@@ -1,34 +1,13 @@
-{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
-{{- $interactive := stdinIsATTY -}}
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
 
-{{- /* Initializes the name variable with a default value */ -}}
-{{- $gituser := "placeholder" -}}
-{{- /* If gituser was previously set, reuses it */ -}}
-{{- if hasKey . "gituser" -}}
-{{-   $gituser = .gituser -}}
-{{- /* Otherwise, if running interactively, prompts for a git username */ -}}
-{{- else if $interactive -}}
 {{-   $gituser = promptString "git username" $gituser -}}
-{{- end -}}
-
-{{- /* Does the same for the email */ -}}
-{{- $gitemail := "placeholder" -}}
-{{- if hasKey . "gitemail" -}}
-{{-   $gitemail = .gitemail -}}
-{{- else if $interactive -}}
 {{-   $gitemail = promptString "git email" $gitemail -}}
-{{- end -}}
-
-{{- /* Check if running in a Remote Dev Container */ -}}
-{{- $dev_container:= env "REMOTE_CONTAINERS" | not | not -}}
-
-{{- if $interactive -}}
 {{-   writeToStdout "Tip: you can re-enter your git user  and email with `chezmoi init --data=false`.\n" -}}
-{{- end -}}
-
-sourceDir: "{{ .chezmoi.sourceDir }}"
 
 data:
+  osid: "{{ $osid | quote }}"
   gituser: "{{ $gituser }}"
   gitemail: "{{ $gitemail }}"
-  dev_container: "{{ $dev_container }}"
