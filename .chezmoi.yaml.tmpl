@@ -3,8 +3,8 @@
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
-{{-   $gituser := promptString "git username" -}}
-{{-   $gitemail := promptString "git email" -}}
+{{ $gitemail := promptString "git email" -}}
+{{ $gituser := promptString "git username" -}}
 {{-   writeToStdout "Tip: you can re-enter your git user  and email with `chezmoi init --data=false`.\n" -}}
 
 data:
