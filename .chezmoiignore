@@ -16,7 +16,7 @@ dot_bashrc
 run_once_01-setup_bash.sh.tmpl
 {{- end }}
 
-{{ if ne .osid "darwin" "linux-ubuntu" }}
+{{ if eq .osid "windows"}}
 dot_zprofile
 dot_zshrc
 run_once_01-setup_zsh.sh.tmpl
