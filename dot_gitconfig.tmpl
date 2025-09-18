@@ -5,6 +5,11 @@
 [includeIf "gitdir:~/git/windy-worm/"]
     path = ~/git/windy-worm/.gitconfig
 
+[pull]
+	rebase = false
+[fetch]
+	prune = true
+	
 [init]
     defaultBranch = main
 
