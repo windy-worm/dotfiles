@@ -1,0 +1,59 @@
+{{ if eq .osid "linux-ubuntu" "darwin" -}}
+{{ if eq .osid "linux-ubuntu" -}}
+#!/bin/sh
+{{  end -}}
+
+{{ if eq .osid "darwin" -}}
+#!/usr/bin/env zsh
+{{  end -}}
+
+#-------------------------------------------------
+# Check for zsh
+if [[ ! $(command -v zsh) ]]; then
+  
+{{  if eq .osid "linux-ubuntu" }}
+    echo "Installing packages"
+    echo "Installing zsh curl git"
+    sudo apt -y install zsh curl git
+{{  end -}}
+
+{{ if eq .osid "darwin" -}}
+    echo "zsh is not installed. Please install it first and then run 'chezmoi apply' again."
+    exit 1
+{{  end -}}
+
+fi
+
+#-------------------------------------------------
+# Switching shell
+current_shell=$(basename "$SHELL")
+if [ "$current_shell" != "zsh" ]; then
+    echo "Switching to zsh"
+    sudo chsh -s $(which zsh)
+fi
+
+#-------------------------------------------------
+# Installing oh my zsh
+echo "Attempting to install oh-my-zsh"
+if [ ! -d ~/.oh-my-zsh ]; then
+
+    echo "Installing oh-my-zsh"    
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    # Oh My Zsh makes a backup, not necessary for this script.
+    rm -rf .zshrc .shell.pre-oh-my-zsh
+    mv .zshrc.pre-oh-my-zsh .zshrc
+fi
+
+#-------------------------------------------------
+# Enable zsh autosuggestions and completions
+if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+    echo "Installing zsh-autosuggestions"
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
+if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+echo "Installing zsh-syntax-highlighting"
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
+{{  end -}}
