@@ -8,6 +8,6 @@
 {{- writeToStdout "Tip: you can re-enter your git user  and email with `chezmoi init --data=false`.\n" -}}
 
 data:
-  osid: "{{ $osid | quote }}"
+  osid: "{{ $osid }}"
   gituser: "{{ $gituser }}"
   gitemail: "{{ $gitemail }}"
