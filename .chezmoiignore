@@ -21,3 +21,9 @@ dot_zprofile
 dot_zshrc
 run_once_01-setup_zsh.sh.tmpl
 {{- end }}
+
+{{ if ne .osid "darwin" }}
+./dot_config/swifbar/*
+./dot_config/aerospace/*
+{{- end }}
+
