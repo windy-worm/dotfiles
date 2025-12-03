@@ -1,13 +1,23 @@
+{{- /* Builds up a more detailed OS id */ -}}
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
-{{- $gitemail := promptString "git email" -}}
-{{- $gituser := promptString "git username" -}}
-{{- writeToStdout "Tip: you can re-enter your git user  and email with `chezmoi init --data=false`.\n" -}}
+{{- /* Check if running in a Remote Dev Container */ -}}
+{{- $dev_container:= env "REMOTE_CONTAINERS" | not | not -}}
+
+{{- /* Prompt for git credentials if local machine */ -}}
+{{- $gituser := "" -}}
+{{- $gitemail := "" -}}
+{{- if not $dev_container -}}
+{{- $gitemail = promptString "git email" -}}
+{{- $gituser = promptString "git username" -}}
+{{- writeToStdout "Tip: you can re-enter your git user and email with `chezmoi init --data=false`.\n" -}}
+{{- end -}}
 
 data:
   osid: "{{ $osid }}"
+  devcontainer: {{ $dev_container }}
   gituser: "{{ $gituser }}"
   gitemail: "{{ $gitemail }}"

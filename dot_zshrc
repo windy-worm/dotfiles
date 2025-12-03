@@ -86,7 +86,6 @@ plugins=(
 	zsh-syntax-highlighting
 )
 
-
 if [ -d ~/.oh-my-zsh ]; then
 	source $ZSH/oh-my-zsh.sh
 fi
@@ -116,3 +115,9 @@ fi
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
+
+prompt_context() {
+  prompt_segment black default "  "
+}
+
+

@@ -10,7 +10,7 @@ install.sh
 glzr/
 {{- end }}
 
-{{ if ne .osid "linux-ubuntu" }}
+{{ if and (ne .osid "linux-ubuntu") (not .devcontainer) }}
 dot_bash_profile
 dot_bashrc
 run_once_01-setup_bash.sh.tmpl
@@ -19,7 +19,12 @@ run_once_01-setup_bash.sh.tmpl
 {{ if eq .osid "windows"}}
 dot_zprofile
 dot_zshrc
+dot_zshenv
 run_once_01-setup_zsh.sh.tmpl
+{{- end }}
+
+{{ if .devcontainer }}
+dot_zshenv
 {{- end }}
 
 {{ if ne .osid "darwin" }}
