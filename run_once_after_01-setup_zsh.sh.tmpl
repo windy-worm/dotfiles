@@ -1,5 +1,5 @@
-{{ if eq .osid "linux-ubuntu" "darwin" -}}
-{{ if eq .osid "linux-ubuntu" -}}
+{{ if eq .osid "linux-ubuntu" "linux-debian" "darwin" -}}
+{{ if eq .osid "linux-ubuntu" "linux-debian" -}}
 #!/bin/sh
 {{  end -}}
 
@@ -11,7 +11,7 @@
 # Check for zsh
 if [[ ! $(command -v zsh) ]]; then
   
-{{  if eq .osid "linux-ubuntu" }}
+{{  if eq .osid "linux-ubuntu" "linux-debian" }}
     echo "Installing packages"
     echo "Installing zsh curl git"
     sudo apt -y install zsh curl git
@@ -38,11 +38,11 @@ echo "Attempting to install oh-my-zsh"
 if [ ! -d ~/.oh-my-zsh ]; then
 
     echo "Installing oh-my-zsh"    
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
     # Oh My Zsh makes a backup, not necessary for this script.
     rm -rf .zshrc .shell.pre-oh-my-zsh
-    mv .zshrc.pre-oh-my-zsh .zshrc
+    [ -f .zshrc.pre-oh-my-zsh ] && mv .zshrc.pre-oh-my-zsh .zshrc
 fi
 
 #-------------------------------------------------
