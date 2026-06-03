@@ -16,9 +16,10 @@
 {{- writeToStdout "Tip: you can re-enter your git user and email with `chezmoi init --data=false`.\n" -}}
 {{- end -}}
 
+sourceDir: "{{ .chezmoi.homeDir }}/dotfiles"
+
 data:
   osid: "{{ $osid }}"
   devcontainer: {{ $dev_container }}
   gituser: "{{ $gituser }}"
   gitemail: "{{ $gitemail }}"
-  sourceDir: "{{ .chezmoi.homeDir }}/dotfiles"
