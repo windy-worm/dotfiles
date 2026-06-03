@@ -7,7 +7,7 @@ README.md
 install.sh
 
 {{ if ne .osid "windows" }}
-glzr/
+glzr/**
 {{- end }}
 
 {{ if and (ne .osid "linux-ubuntu") (not .devcontainer) }}
@@ -28,7 +28,7 @@ dot_zshenv
 {{- end }}
 
 {{ if ne .osid "darwin" }}
-./dot_config/swiftbar/*
-./dot_config/aerospace/*
+dot_config/swiftbar/**
+dot_config/aerospace/**
 {{- end }}
 
