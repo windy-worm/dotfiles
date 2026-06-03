@@ -11,24 +11,24 @@ glzr/**
 {{- end }}
 
 {{ if and (ne .osid "linux-ubuntu") (not .devcontainer) }}
-dot_bash_profile
-dot_bashrc
+.bash_profile
+.bashrc
 run_once_01-setup_bash.sh.tmpl
 {{- end }}
 
 {{ if eq .osid "windows"}}
-dot_zprofile
-dot_zshrc
-dot_zshenv
+.zprofile
+.zshrc
+.zshenv
 run_once_01-setup_zsh.sh.tmpl
 {{- end }}
 
 {{ if .devcontainer }}
-dot_zshenv
+.zshenv
 {{- end }}
 
 {{ if ne .osid "darwin" }}
-dot_config/swiftbar/**
-dot_config/aerospace/**
+.config/swiftbar/**
+.config/aerospace/**
 {{- end }}
 
