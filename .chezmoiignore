@@ -28,7 +28,7 @@ dot_zshenv
 {{- end }}
 
 {{ if ne .osid "darwin" }}
-./dot_config/swifbar/*
+./dot_config/swiftbar/*
 ./dot_config/aerospace/*
 {{- end }}
 
